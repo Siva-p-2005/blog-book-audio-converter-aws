@@ -30,7 +30,34 @@ It uses AWS managed services to automatically convert uploaded text files into a
 - AWS IAM – Secure permissions and roles
 - Python 3.8 – Lambda runtime
 
----
+---diagram
+┌───────────────────────────┐
+│   User Uploads .txt File  │
+│ (Blog / Book / Article)   │
+└─────────────┬─────────────┘
+              │
+              ▼
+┌───────────────────────────┐
+│  Amazon S3 (Source Bucket)│
+│ amc-polly-source-bucket   │
+└─────────────┬─────────────┘
+              │  (S3 Event Trigger)
+              ▼
+┌───────────────────────────┐
+│   AWS Lambda Function     │
+│   text_to_speech.py       │
+│                           │
+│ - Read text from S3       │
+│ - Call Amazon Polly       │
+│ - Convert text to MP3     │
+└─────────────┬─────────────┘
+              │
+              ▼
+┌───────────────────────────┐
+│   Amazon Polly Service    │
+│ (Text → Speech Conversion)│
+└───
+
 
 ## 🏗️ Architecture
 Text File Upload (Source S3 Bucket)  
